@@ -1,6 +1,6 @@
 import { LLMChain } from "langchain";
 import { ChatOpenAI } from "langchain/chat_models";
-import { ZeroShotAgent, AgentExecutor } from "langchain/agents";
+import { initializeAgentExecutor } from "langchain/agents";
 import { SerpAPI } from "langchain/tools";
 import {
   ChatPromptTemplate,
@@ -17,41 +17,17 @@ export default async function handler(req, res) {
     const model = new ChatOpenAI({ openAIApiKey: KEY, temperature: 0 });
     const tools = [new SerpAPI(serpKEY)];
 
-    console.log("hi")
-
-    const prompt = ZeroShotAgent.createPrompt(tools, {
-      prefix: `Answer the following questions as best you can, but speaking as a pirate might speak. You have access to the following tools:`,
-      suffix: `Begin! Remember to speak as a pirate when giving your final answer. Use lots of "Args"`,
-    });
-  
-    const chatPrompt = ChatPromptTemplate.fromPromptMessages([
-      new SystemMessagePromptTemplate(prompt),
-      HumanMessagePromptTemplate.fromTemplate(`{input}
-  
-  This was your previous work (but I haven't seen any of it! I only see what you return as final answer):
-  {agent_scratchpad}`),
-    ]);
-
-    console.log("hi2")
-    const llmChain = new LLMChain({
-      prompt: chatPrompt,
-      llm: model,
-    });
-
-    const agent = new ZeroShotAgent({
-      llmChain,
-      allowedTools: tools,
-    });
-  
-    const executor = AgentExecutor.fromAgentAndTools({ agent, tools });
-  
-    console.log("hi3")
+    const executor = await initializeAgentExecutor(
+      tools,
+      model,
+      "zero-shot-react-description",
+      true
+    );
 
     
-
     const input = req.body.input;
     
-    const result = await executor.run("hi");
+    const result = await executor.call({ input });
   
     res.status(200).json({ output: result.output });
   

@@ -8,7 +8,7 @@ import TypingAnimation from './components/TypingAnimation'
 import { HumanChatMessage } from 'langchain/schema';
 import { CallbackManager } from 'langchain/callbacks';
 
-import { run } from './agent';
+
 
 
 
@@ -27,17 +27,6 @@ export default function Home() {
 
 
   async function sendMessagesLang(message) {
-
- /*   
-  const model = new ChatOpenAI({openAIApiKey:KEY, temperature:0,});
-                        
-  const response = await model.call([
-    new HumanChatMessage(message)
-  ])
-  console.log(response)
-
-  const response = await run(message)
-*/
 
 
   const response = await axios.post('/api/agentServerSide', {input: message})
