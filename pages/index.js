@@ -89,10 +89,10 @@ export default function Home() {
 */
   return (
     <>
-    <div className='bg-gray-800 h-screen '>
-    <div className='container mx-auto max-w-[1500px] py-3'>
-    <h1 className='bg-gradient-to-r from-blue-500 to-purple-500 text-transparent bg-clip-text text-center font-bold text-5xl pb-4'>Assistant V2.1</h1>
-      <div className='flex flex-col h-[800px] bg-gray-900 my rounded-lg py-10 overflow-y-scroll'>
+    <div className='bg-gray-800 h-screen'>
+    <div className='container mx-auto h-full w-5/6 py-3'>
+    <h1 className='bg-gradient-to-r from-blue-500 to-purple-500 text-transparent bg-clip-text text-center font-bold text-5xl pb-4'>V2.1</h1>
+      <div className='flex flex-col h-4/6 bg-gray-900 my rounded-lg h-1/ overflow-y-scroll'>
         
           <div className='flex-grow p-6'>
             <div className='flex flex-col space-y-4'>

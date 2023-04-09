@@ -15,7 +15,7 @@ const serpKEY = 'cba55f8c3f206322ffdd3a924d1ce2215a5c4bb382b3783dc52d306bcc0c20e
 
 export default async function handler(req, res) {
   try {
-    const model = new ChatOpenAI({ openAIApiKey: KEY, temperature: 0 });
+    const model = new ChatOpenAI({ openAIApiKey: KEY, temperature: 0 },{basePath: "https://oai.hconeai.com/v1"});
     const tools = [new SerpAPI(serpKEY)];
     const serpapi = tools[0]
     serpapi.description = "This tool allows you to search information you dont know on the internet. Only use it when someone asks you about specific information about the airline company Etihad"
